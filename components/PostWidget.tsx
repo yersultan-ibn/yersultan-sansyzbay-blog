@@ -1,9 +1,22 @@
 "use client";
+import { getRecentPosts, getSimilarPost } from "@/services";
+import moment from "moment";
 import Image from "next/image";
-import React, { useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
-const PostWidget = ({ categories, slug }) => {
+const PostWidget = ({ categories, slug }) => { 
   const [relatedPosts, setRelatedPosts] = useState([]);
+
+  useEffect(() => {
+    if (slug) {
+      getSimilarPost(categories, slug).then((result) =>
+        setRelatedPosts(result)
+      );
+    } else {
+      getRecentPosts().then((result) => setRelatedPosts(result));
+    }
+  }, []);
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
