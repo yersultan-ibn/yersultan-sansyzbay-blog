@@ -101,6 +101,7 @@ export async function getSimilarPost(categories, slug) {
     console.log(err);
   }
 }
+
 export async function getRecentPosts() {
   try {
     const res = await request(graphqlAPI, gqlGetRecentPosts);
@@ -109,6 +110,7 @@ export async function getRecentPosts() {
     console.log(err);
   }
 }
+
 export async function getCategories() {
   try {
     const res = await request(graphqlAPI, gqlGetCategories);
