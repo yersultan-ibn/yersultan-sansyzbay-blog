@@ -6,7 +6,7 @@ const Pagination = ({ pageCount, onPageChange }) => {
 
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
-    onPageChange(selectedPage.selected + 1); // Вызываем коллбэк с номером страницы
+    onPageChange(selectedPage.selected + 1); 
   };
 
   return (
@@ -18,20 +18,22 @@ const Pagination = ({ pageCount, onPageChange }) => {
       onPageChange={handlePageChange}
       forcePage={currentPage}
       containerClassName={"flex justify-center mt-4"}
-      pageClassName={
-        "inline-flex items-center h-10 px-4 py-2 mx-2 font-medium bg-white text-gray-700 border border-gray-300 cursor-pointer rounded-lg hover:bg-gray-100"
-      }
-      previousClassName={
-        "inline-flex items-center h-10 px-4 py-2 mx-2 font-medium bg-white text-gray-700 border border-gray-300 cursor-pointer rounded-lg hover:bg-gray-100"
-      }
-      nextClassName={
-        "inline-flex items-center h-10 px-4 py-2 mx-2 font-medium bg-white text-gray-700 border border-gray-300 cursor-pointer rounded-lg hover:bg-gray-100"
-      }
-      breakClassName={
-        "inline-flex items-center h-10 px-4 py-2 mx-2 font-medium bg-white text-gray-700 border border-gray-300 cursor-pointer rounded-lg hover:bg-gray-100"
-      }
-      activeClassName={"bg-blue-500 text-white"}
+      pageClassName={"pagination_link"}
+      previousClassName={"pagination_link"}
+      nextClassName={"pagination_link"}
+      breakClassName={"pagination_link"}
+      activeClassName={"bg-[#1565D8] text-[#1565D8]"}
       disabledClassName={"cursor-not-allowed"}
+      previousLinkClassName={"cursor-pointer"}
+      nextLinkClassName={"cursor-pointer"}
+      pageLinkClassName={"cursor-pointer"}
+      previousLinkHref={"#"}
+      nextLinkHref={"#"}
+      pageLinkHref={"#"}
+      pageLinkStyle={{ cursor: "pointer" }}
+      previousLinkStyle={{ cursor: "pointer" }}
+      nextLinkStyle={{ cursor: "pointer" }}
+      pageRangeDisplayed={5}
     />
   );
 };

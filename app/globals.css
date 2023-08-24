@@ -46,3 +46,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.pagination_link {
+  @apply inline-flex items-center h-10 px-4 py-2 mx-2 font-medium bg-white text-gray-700 border border-gray-300 cursor-pointer rounded-lg hover:bg-gray-100;
+}

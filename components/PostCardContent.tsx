@@ -3,7 +3,7 @@ import React from "react";
 
 const PostCardContent = ({ post }) => {
   const backgroundImageStyle = {
-    backgroundImage: `url(${post.featuredImage.url})`, // Подставьте URL изображения из объекта post
+    backgroundImage: `url(${post.featuredImage.url})`,
   };
 
   return (

@@ -4,3 +4,4 @@ export { default as PostCardContent } from "./PostCardContent";
 export { default as PostWidget } from "./PostWidget";
 export { default as Categories } from "./Categories";
 export { default as Pagination } from "./Pagination";
+export { default as Spinner } from "./Spinner";
