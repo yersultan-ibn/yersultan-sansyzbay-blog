@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import rightIcon from "../public/right-arrow.svg";
+import { FeaturedPosts } from "@/sections";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -40,6 +41,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-10 mb-8">
+      <FeaturedPosts />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-10">
         <div className="lg:col-span-8 col-span-1">
           {isLoading ? (

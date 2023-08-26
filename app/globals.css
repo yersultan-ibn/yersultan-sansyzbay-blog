@@ -8,7 +8,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: Nunito, Roboto, system-ui, Tahoma, sans-serif;
   &:before {
     content: "";
     content: "";
@@ -45,6 +45,7 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: Nunito, Roboto, system-ui, Tahoma, sans-serif;
 }
 
 .pagination_link {

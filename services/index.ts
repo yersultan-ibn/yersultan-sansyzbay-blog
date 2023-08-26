@@ -105,6 +105,114 @@ const gqlGetPostDetails = gql`
   }
 `;
 
+const gqlGetAuthorDetails = gql`
+  query GetAuthorDetails($slug: String!) {
+    post(where: { slug: $slug }) {
+      title
+      excerpt
+      featuredImage {
+        url
+      }
+      author {
+        name
+        bio
+        photo {
+          url
+        }
+        createdAt
+      }
+      createdAt
+      slug
+      content {
+        raw
+      }
+      categories {
+        name
+        slug
+      }
+    }
+  }
+`;
+
+const gqlGetAdjacentPosts = gql`
+  query GetAdjacentPosts($createdAt: DateTime!, $slug: String!) {
+    next: posts(
+      first: 1
+      orderBy: createdAt_ASC
+      where: { slug_not: $slug, AND: { createdAt_gte: $createdAt } }
+    ) {
+      title
+      featuredImage {
+        url
+      }
+      createdAt
+      slug
+    }
+    previous: posts(
+      first: 1
+      orderBy: createdAt_DESC
+      where: { slug_not: $slug, AND: { createdAt_lte: $createdAt } }
+    ) {
+      title
+      featuredImage {
+        url
+      }
+      createdAt
+      slug
+    }
+  }
+`;
+
+const gqlGetFeaturedPosts = gql`
+    query GetCategoryPost() {
+      posts(where: {featuredPost: true}) {
+        author {
+          name
+          photo {
+            url
+          }
+        }
+        featuredImage {
+          url
+        }
+        title
+        slug
+        createdAt
+      }
+    }   
+  `;
+
+const gqlGetCategoryPost = gql`
+  query GetCategoryPost($slug: String!) {
+    postsConnection(where: { categories_some: { slug: $slug } }) {
+      edges {
+        cursor
+        node {
+          author {
+            bio
+            name
+            id
+            photo {
+              url
+            }
+          }
+          createdAt
+          slug
+          title
+          excerpt
+          featuredImage {
+            url
+          }
+          categories {
+            name
+            slug
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const getPosts = async (startIndex, endIndex) => {
   try {
     const res = await request(graphqlAPI, gqlPosts, {
@@ -151,6 +259,42 @@ export async function getPostDetails(slug) {
   try {
     const res = await request(graphqlAPI, gqlGetPostDetails, { slug });
     return res.post;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getAuthorDetails(slug) {
+  try {
+    const res = await request(graphqlAPI, gqlGetAuthorDetails, { slug });
+    return res.post.author;
+  } catch (err) {
+    console.log(err);
+  }
+}
+export async function getAdjacentPosts(createdAt, slug) {
+  try {
+    const res = await request(graphqlAPI, gqlGetAdjacentPosts, {
+      slug,
+      createdAt,
+    });
+    return { next: res.next, previous: res.previous };
+  } catch (err) {
+    console.log(err);
+  }
+}
+export async function getFeaturedPosts() {
+  try {
+    const res = await request(graphqlAPI, gqlGetFeaturedPosts);
+    return res.posts;
+  } catch (err) {
+    console.log(err);
+  }
+}
+export async function getCategoryPost(slug) {
+  try {
+    const res = await request(graphqlAPI, gqlGetCategoryPost, { slug });
+    return res.postsConnection.edges;
   } catch (err) {
     console.log(err);
   }
