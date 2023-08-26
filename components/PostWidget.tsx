@@ -19,7 +19,7 @@ const PostWidget = ({ categories, slug }) => {
   }, []);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
+    <div className="bg-[#f9f8f4] shadow-lg rounded-lg p-8 pb-12 mb-8">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">
         {slug ? "Похожие посты" : "Недавние посты"}
       </h3>

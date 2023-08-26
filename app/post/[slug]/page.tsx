@@ -18,6 +18,8 @@ import { getPostDetails } from "@/services";
 import { Categories, PostWidget, Spinner } from "@/components";
 import PostDetail from "@/components/PostDetail";
 import Author from "@/components/Author";
+import Link from "next/link";
+import { AdjacentPosts } from "@/sections";
 
 const PostDetails = ({ params }) => {
   const [post, setPost] = useState([]);
@@ -34,7 +36,9 @@ const PostDetails = ({ params }) => {
 
     fetchData();
   }, []);
-  //   console.log("postpost", post);
+
+  console.log("PostDetails", post);
+
   return (
     <>
       <div className="container mx-auto px-10 mb-8">
