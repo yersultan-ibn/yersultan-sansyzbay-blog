@@ -47,7 +47,46 @@ a {
   box-sizing: border-box;
   font-family: Nunito, Roboto, system-ui, Tahoma, sans-serif;
 }
-
+@layer utilities {
+  .custom-clip-path {
+    -webkit-clip-path: polygon(
+      100% 0,
+      100% 50%,
+      100% 100%,
+      5% 100%,
+      0 50%,
+      5% 0
+    );
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 5% 100%, 0 50%, 5% 0);
+  }
+}
 .pagination_link {
   @apply inline-flex items-center h-10 px-4 py-2 mx-2 font-medium bg-white text-gray-700 border border-gray-300 cursor-pointer rounded-lg hover:bg-gray-100;
 }
+/* .Typewriter__cursor {
+  -webkit-animation: Typewriter-cursor 1s infinite;
+  animation: Typewriter-cursor 1s infinite;
+  margin-left: 1px;
+}
+@-webkit-keyframes Typewriter-cursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes Typewriter-cursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} */

@@ -7,7 +7,7 @@ import CustomButton from "./Button";
 // import { grpahCMSImageLoader } from '../util';
 
 const PostCard = ({ post }) => {
-  console.log("post", post);
+  console.log("PostCard", post);
   return (
     <div className="bg-[#f9f8f4] shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8 border border-[#000]">
       <div className="relative overflow-hidden shadow-md pb-80 mb-6 mx-auto h-full w-[400px]">
@@ -17,7 +17,7 @@ const PostCard = ({ post }) => {
           className="object-top absolute h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg"
         />
       </div>
-      <div className="block lg:flex text-center items-center justify-center mb-8 w-full border-b border-[#000] pb-3">
+      <div className="relative block lg:flex text-center items-center justify-center mb-8 w-full border-b border-[#000] pb-3">
         <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 ">
           <Image
             unoptimized
@@ -50,6 +50,22 @@ const PostCard = ({ post }) => {
           <span className="align-middle">
             {moment(post?.createdAt).format("MMM DD, YYYY")}
           </span>
+        </div>
+
+        <div className="absolute cursor-pointer right-5 bg-[#f1cf71] text-black rounded-[14px] px-5 py-1">
+          {post?.categories?.map((category, index) => (
+            <Link key={index} href={`/category/${category.slug}`}>
+              <span
+                className={`block ${
+                  index === post?.categories?.length - 1
+                    ? "border-b-0"
+                    : "border-b"
+                }`}
+              >
+                {category.name}
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
       <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-[22px] font-semibold ">

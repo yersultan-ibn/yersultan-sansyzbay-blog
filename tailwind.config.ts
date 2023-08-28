@@ -17,6 +17,16 @@ const config: Config = {
       boxShadow: {
         "gardient-featured": "inset 0px -100px 18px -17px #6246ea",
       },
+      plugins: [
+        require("tailwind-typewriter")({
+          wordsets: {
+            fruit: {
+              words: ["apple", "banana", "orange", "pear", "strawberry"],
+              delay: 3,
+            },
+          },
+        }),
+      ],
     },
   },
   plugins: [],

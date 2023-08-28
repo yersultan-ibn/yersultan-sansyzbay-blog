@@ -213,11 +213,43 @@ const gqlGetCategoryPost = gql`
   }
 `;
 
+const gqlGetComments = gql`
+  query GetComments($slug: String!) {
+    comments(where: { post: { slug: $slug } }) {
+      name
+      createdAt
+      comment
+    }
+  }
+`;
+
+export const submitComment = async (obj) => {
+  const result = await fetch("/api/comments", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(obj),
+  });
+
+  return result.json();
+  console.log("result", result);
+};
+
+export async function getComments(slug) {
+  try {
+    const res = await request(graphqlAPI, gqlGetComments, { slug });
+    return res.comments;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export const getPosts = async (startIndex, endIndex) => {
   try {
     const res = await request(graphqlAPI, gqlPosts, {
-      first: endIndex - startIndex, // Количество элементов на странице
-      skip: startIndex, // Сколько элементов пропустить
+      first: endIndex - startIndex,
+      skip: startIndex,
     });
 
     return res.postsConnection.edges;
