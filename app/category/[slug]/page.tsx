@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { PostCard, Categories, Spinner } from "@/components";
-import { getCategories, getCategoryPost } from "@/services";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
 
 const CategoryPost = ({ params }) => {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const router = useRouter();
+
+  const { getCategoryPost, getCategories } = useGraphQLRequest();
 
   useEffect(() => {
     const fetchData = async () => {

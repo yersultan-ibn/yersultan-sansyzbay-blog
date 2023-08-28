@@ -2,19 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-// import {
-//   PostDetail,
-//   Categories,
-//   PostWidget,
-//   Author,
-//   Comments,
-//   CommentsForm,
-//   Loader,
-//   Spinner,
-// } from "../../../components";
-import { getPostDetails } from "@/services";
-
-// import { AdjacentPosts } from "../../sections";
 import { Categories, PostWidget, Spinner } from "@/components";
 import PostDetail from "@/components/PostDetail";
 import Author from "@/components/Author";
@@ -22,10 +9,13 @@ import Link from "next/link";
 import { AdjacentPosts } from "@/sections";
 import CommentsForm from "@/components/CommentsForm";
 import Comments from "@/components/Comments";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
 
 const PostDetails = ({ params }) => {
   const [post, setPost] = useState([]);
   const router = useRouter();
+
+  const { getPostDetails } = useGraphQLRequest();
 
   if (router.isFallback) {
     return <Spinner />;

@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import rightIcon from "../public/right-arrow.svg";
 import { FeaturedPosts } from "@/sections";
 import { hats } from "@/constants";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -27,8 +28,22 @@ export default function Home() {
   const totalItems = 100;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
+  const { getPosts } = useGraphQLRequest();
+
   useEffect(() => {
-    const fetchData = async () => {
+    // const fetchData = async () => {
+    //   setIsLoading(true);
+    //   const startIndex = (currentPage - 1) * itemsPerPage;
+    //   const endIndex = startIndex + itemsPerPage;
+    //   const postsData = await getPosts(startIndex, endIndex);
+    //   setPosts(postsData);
+    //   setIsLoading(false);
+    //   window.scrollTo(0, 0);
+    // };
+
+    // fetchData();
+
+    const fetchPosts = async () => {
       setIsLoading(true);
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
@@ -37,8 +52,7 @@ export default function Home() {
       setIsLoading(false);
       window.scrollTo(0, 0);
     };
-
-    fetchData();
+    fetchPosts();
   }, [currentPage]);
 
   console.log("posts", posts);
@@ -56,7 +70,7 @@ export default function Home() {
             {isLoading ? (
               <Spinner />
             ) : (
-              posts.map((post, index) => (
+              posts?.map((post, index) => (
                 <PostCard key={post.id} post={post.node} />
               ))
             )}

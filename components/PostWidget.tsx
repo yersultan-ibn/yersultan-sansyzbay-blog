@@ -1,13 +1,13 @@
 "use client";
-import { getRecentPosts, getSimilarPost } from "@/services";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const PostWidget = ({ categories, slug }) => { 
+const PostWidget = ({ categories, slug }) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
-
+  const { getSimilarPost, getRecentPosts } = useGraphQLRequest();
   useEffect(() => {
     if (slug) {
       getSimilarPost(categories, slug).then((result) =>
