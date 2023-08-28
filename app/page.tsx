@@ -10,7 +10,6 @@ import {
   TypeWriter,
 } from "@/components";
 import CustomButton from "@/components/Button";
-import { getPosts } from "@/services";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -31,18 +30,6 @@ export default function Home() {
   const { getPosts } = useGraphQLRequest();
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   setIsLoading(true);
-    //   const startIndex = (currentPage - 1) * itemsPerPage;
-    //   const endIndex = startIndex + itemsPerPage;
-    //   const postsData = await getPosts(startIndex, endIndex);
-    //   setPosts(postsData);
-    //   setIsLoading(false);
-    //   window.scrollTo(0, 0);
-    // };
-
-    // fetchData();
-
     const fetchPosts = async () => {
       setIsLoading(true);
       const startIndex = (currentPage - 1) * itemsPerPage;
