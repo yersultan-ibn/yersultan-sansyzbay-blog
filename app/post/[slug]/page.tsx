@@ -20,6 +20,8 @@ import PostDetail from "@/components/PostDetail";
 import Author from "@/components/Author";
 import Link from "next/link";
 import { AdjacentPosts } from "@/sections";
+import CommentsForm from "@/components/CommentsForm";
+import Comments from "@/components/Comments";
 
 const PostDetails = ({ params }) => {
   const [post, setPost] = useState([]);
@@ -46,9 +48,9 @@ const PostDetails = ({ params }) => {
           <div className="col-span-1 lg:col-span-8">
             <PostDetail post={post} />
             <Author author={post?.author} />
-            {/* <AdjacentPosts slug={post.slug} createdAt={post.createdAt} /> */}
-            {/* <CommentsForm slug={params?.slug} /> */}
-            {/* <Comments slug={params?.slug} /> */}
+            {/* <AdjacentPosts slug={params.slug} createdAt={post?.createdAt} /> */}
+            <CommentsForm slug={params?.slug} />
+            <Comments slug={params?.slug} />
           </div>
           {/* <div className="col-span-1 lg:col-span-4">
             <div className="relative lg:sticky top-8">
