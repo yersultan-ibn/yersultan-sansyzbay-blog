@@ -1,6 +1,6 @@
 "use client";
 import { Spinner } from "@/components";
-import { getAuthorDetails, getPostDetails } from "@/services";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
 import moment from "moment";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 const AuthorDetails = ({ params }) => {
   const [author, setAuthor] = useState([]);
   const router = useRouter();
+  const { getAuthorDetails } = useGraphQLRequest();
 
   if (router.isFallback) {
     return <Spinner />;

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { getAdjacentPosts } from "@/services";
 import AdjacentPostCard from "@/components/AdjacentPostCard";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
 
 const AdjacentPosts = ({ createdAt, slug }) => {
   const [adjacentPost, setAdjacentPost] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
+
+  const { getAdjacentPosts } = useGraphQLRequest();
 
   useEffect(() => {
     getAdjacentPosts(createdAt, slug).then((result) => {
