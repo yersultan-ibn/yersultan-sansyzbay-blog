@@ -3,11 +3,19 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import parse from "html-react-parser";
 import { getComments } from "@/services";
-// import useGraphQLRequest from "@/services/useGraphQLRequest";
 
-const Comments = ({ slug }) => {
-  const [comments, setComments] = useState([]);
-  // const { getComments } = useGraphQLRequest();
+interface Comment {
+  name: string;
+  createdAt: string;
+  comment: string;
+}
+
+interface CommentsProps {
+  slug: string;
+}
+
+const Comments: React.FC<CommentsProps> = ({ slug }): JSX.Element => {
+  const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,23 +23,16 @@ const Comments = ({ slug }) => {
     };
 
     fetchData();
-  }, []);
-  // useEffect(() => {
-  //   getComments(slug).then((result) => {
-  //     console.log("resultresult", result);
-  //     setComments(result);
-  //   });
-  // }, []);
-  console.log("comments", comments);
+  }, [slug]);
+
   return (
     <>
-      {/* Comments Component */}
       {comments?.length > 0 && (
         <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
           <h3 className="text-xl mb-8 font-semibold border-b pb-4">
             {comments?.length} Comments
           </h3>
-          {comments?.map((comment, index) => (
+          {comments?.map((comment: Comment, index: number) => (
             <div key={index} className="border-b border-gray-100 mb-4 pb-4">
               <p className="mb-4">
                 <span className="font-semibold">{comment.name}</span> on{" "}

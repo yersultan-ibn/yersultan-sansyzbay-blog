@@ -17,26 +17,30 @@ import rightIcon from "../public/right-arrow.svg";
 import { FeaturedPosts } from "@/sections";
 import { hats } from "@/constants";
 import useGraphQLRequest from "@/services/useGraphQLRequest";
+interface PostData {
+  id: string;
+  node: any; // Use a more specific type if available
+}
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isActive, setIsActive] = useState(false);
-  const itemsPerPage = 3;
-  const totalItems = 100;
-  const pageCount = Math.ceil(totalItems / itemsPerPage);
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const itemsPerPage: number = 3;
+  const totalItems: number = 100;
+  const pageCount: number = Math.ceil(totalItems / itemsPerPage);
 
   const { getPosts } = useGraphQLRequest();
 
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const postsData = await getPosts(startIndex, endIndex);
+      const startIndex: number = (currentPage - 1) * itemsPerPage;
+      const endIndex: number = startIndex + itemsPerPage;
+      const postsData: any[] = await getPosts(startIndex, endIndex);
 
-      const sortedPosts = postsData.sort(
+      const sortedPosts: PostData[] = postsData.sort(
         (a, b) => new Date(b.node.createdAt) - new Date(a.node.createdAt)
       );
 
@@ -66,7 +70,7 @@ export default function Home() {
           </div>
           <div className="lg:col-span-4 col-span-1">
             <div className="lg:sticky relative top-8">
-              <PostWidget />
+              {/* <PostWidget /> */}
               <Categories />
             </div>
           </div>

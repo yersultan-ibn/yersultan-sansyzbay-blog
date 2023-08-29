@@ -1,11 +1,16 @@
 "use client";
 
-import { getCategories } from "@/services";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { getCategories } from "@/services";
 
-const Header = () => {
-  const [categories, setCategories] = useState([]);
+interface Category {
+  name: string;
+  slug: string;
+}
+
+const Header: React.FC = (): JSX.Element => {
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     getCategories().then((newCategories) => {

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 
-const Pagination = ({ pageCount, onPageChange }) => {
+interface PaginationProps {
+  pageCount: number;
+  onPageChange: (selectedPage: number) => void;
+}
+
+const Pagination: React.FC<PaginationProps> = ({
+  pageCount,
+  onPageChange,
+}): JSX.Element => {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const handlePageChange = (selectedPage) => {
+  const handlePageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected);
-    onPageChange(selectedPage.selected + 1); 
+    onPageChange(selectedPage.selected + 1);
   };
 
   return (

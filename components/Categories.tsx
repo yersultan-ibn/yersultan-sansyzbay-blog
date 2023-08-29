@@ -3,11 +3,16 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { getCategories } from "@/services";
 
-const Categories = (): JSX.Element => {
-  const [categories, setCategories] = useState([]);
+interface Category {
+  name: string;
+  slug: string;
+}
+
+const Categories: React.FC = (): JSX.Element => {
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    getCategories().then((newCategories) => {
+    getCategories().then((newCategories: Category[]) => {
       setCategories(newCategories);
     });
   }, []);
@@ -17,7 +22,7 @@ const Categories = (): JSX.Element => {
       <h3 className="text-[30px] mb-8 font-semibold border-b pt-4 pb-4 text-center border-t uppercase">
         КНИГИ
       </h3>
-      {categories?.map((category, index) => (
+      {categories?.map((category: Category, index: number) => (
         <Link key={index} href={`/category/${category.slug}`}>
           <span
             className={`relative uppercase custom-clip-path bg-[#f1cf71] cursor-pointer block ${

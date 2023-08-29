@@ -11,8 +11,14 @@ import CommentsForm from "@/components/CommentsForm";
 import Comments from "@/components/Comments";
 import useGraphQLRequest from "@/services/useGraphQLRequest";
 
-const PostDetails = ({ params }) => {
-  const [post, setPost] = useState([]);
+interface PostDetailsProps {
+  params: {
+    slug: string;
+  };
+}
+
+const PostDetails: React.FC<PostDetailsProps> = ({ params }) => {
+  const [post, setPost] = useState<any>({});
   const router = useRouter();
 
   const { getPostDetails } = useGraphQLRequest();
@@ -28,7 +34,6 @@ const PostDetails = ({ params }) => {
 
     fetchData();
   }, []);
-  console.log("posttttttt", post.slug);
 
   return (
     <>

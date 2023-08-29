@@ -6,9 +6,14 @@ import moment from "moment";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+interface AuthorDetailsProps {
+  params: {
+    slug: string;
+  };
+}
 
-const AuthorDetails = ({ params }) => {
-  const [author, setAuthor] = useState([]);
+const AuthorDetails: React.FC<AuthorDetailsProps> = ({ params }) => {
+  const [author, setAuthor] = useState<any>({});
   const router = useRouter();
   const { getAuthorDetails } = useGraphQLRequest();
 

@@ -1,11 +1,61 @@
 import React from "react";
-
 import moment from "moment";
 import Link from "next/link";
 
-const PostDetail = ({ post }) => {
-  const getContentFragment = (index, text, obj, type) => {
-    let modifiedText = text;
+interface Author {
+  name: string;
+  photo: {
+    url: string;
+  };
+}
+
+interface Post {
+  featuredImage: {
+    url: string;
+  };
+  title: string;
+  slug: string;
+  author?: Author;
+  createdAt: string;
+  content: {
+    raw: {
+      children: {
+        type: string;
+        children: {
+          text: string;
+          bold?: boolean;
+          italic?: boolean;
+          underline?: boolean;
+        }[];
+        title?: string;
+        src?: string;
+        width?: string;
+        height?: string;
+      }[];
+    };
+  };
+}
+
+interface PostDetailProps {
+  post: Post;
+}
+
+const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
+  const getContentFragment = (
+    index: number,
+    text: string,
+    obj?: {
+      bold?: boolean;
+      italic?: boolean;
+      underline?: boolean;
+      title?: string;
+      src?: string;
+      width?: string;
+      height?: string;
+    },
+    type?: string
+  ): JSX.Element | JSX.Element[] | string => {
+    let modifiedText: JSX.Element | string = text;
 
     if (obj) {
       if (obj.bold) {
@@ -28,35 +78,29 @@ const PostDetail = ({ post }) => {
       case "heading-three":
         return (
           <h3 key={index} className="text-xl">
-            {modifiedText.map((item, i) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
+            {modifiedText}
           </h3>
         );
       case "paragraph":
         return (
           <p key={index} className="mb-8 leading-loose text-[20px]">
-            {modifiedText.map((item, i) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
+            {modifiedText}
           </p>
         );
       case "heading-four":
         return (
           <h4 key={index} className="text-md font-semibold mb-8">
-            {modifiedText.map((item, i) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
+            {modifiedText}
           </h4>
         );
       case "image":
         return (
           <img
             key={index}
-            alt={obj.title}
-            height={obj.height}
-            width={obj.width}
-            src={obj.src}
+            alt={obj?.title}
+            height={obj?.height}
+            width={obj?.width}
+            src={obj?.src}
           />
         );
       default:

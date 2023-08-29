@@ -2,7 +2,16 @@
 import Image from "next/image";
 import { title } from "process";
 
-const CustomButton = ({
+interface CustomButtonProps {
+  title: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  textStyles?: string;
+  containerStyles?: string;
+  btnType?: "button" | "submit" | "reset";
+  rightIcon?: string;
+}
+
+const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onClick,
   textStyles,

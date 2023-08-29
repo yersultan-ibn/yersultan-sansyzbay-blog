@@ -1,14 +1,31 @@
 "use client";
-import useGraphQLRequest from "@/services/useGraphQLRequest";
-import { grpahCMSImageLoader } from "@/util";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
+import { grpahCMSImageLoader } from "@/util";
+import { getRecentPosts, getSimilarPost } from "@/services";
 
-const PostWidget = ({ categories, slug }) => {
-  const [relatedPosts, setRelatedPosts] = useState([]);
-  const { getSimilarPost, getRecentPosts } = useGraphQLRequest();
+interface Post {
+  title: string;
+  slug: string;
+  createdAt: string;
+  featuredImage: {
+    url: string;
+  };
+}
+
+interface PostWidgetProps {
+  categories: string[];
+  slug?: string;
+}
+
+const PostWidget: React.FC<PostWidgetProps> = ({
+  categories,
+  slug,
+}): JSX.Element => {
+  const [relatedPosts, setRelatedPosts] = useState<Post[]>([]);
   useEffect(() => {
     if (slug) {
       getSimilarPost(categories, slug).then((result) =>
@@ -18,7 +35,6 @@ const PostWidget = ({ categories, slug }) => {
       getRecentPosts().then((result) => setRelatedPosts(result));
     }
   }, []);
-  console.log("relatedPosts", relatedPosts);
   return (
     <div className="bg-[#f9f8f4] shadow-lg rounded-lg p-8 pb-12 mb-8">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">

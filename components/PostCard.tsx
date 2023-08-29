@@ -5,7 +5,36 @@ import Link from "next/link";
 import CustomButton from "./Button";
 import { grpahCMSImageLoader } from "@/util";
 
-const PostCard = ({ post }) => {
+interface Category {
+  name: string;
+  slug: string;
+}
+
+interface Author {
+  name: string;
+  photo: {
+    url: string;
+  };
+}
+
+interface Post {
+  featuredImage: {
+    url: string;
+  };
+  slug: string;
+  name: string;
+  author: Author;
+  createdAt: string;
+  categories: Category[];
+  title: string;
+  excerpt: string;
+}
+
+interface PostCardProps {
+  post: Post;
+}
+
+const PostCard: React.FC<PostCardProps> = ({ post }): JSX.Element => {
   return (
     <div className="bg-[#f9f8f4] shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8 border border-[#000]">
       <div className="relative overflow-hidden shadow-md pb-80 mb-6 mx-auto h-full w-[400px]">
