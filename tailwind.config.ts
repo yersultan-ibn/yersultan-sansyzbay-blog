@@ -26,6 +26,7 @@ const config: Config = {
             },
           },
         }),
+        require("flowbite/plugin"),
       ],
     },
   },
