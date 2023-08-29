@@ -1,6 +1,7 @@
 "use client";
 import { Spinner } from "@/components";
 import useGraphQLRequest from "@/services/useGraphQLRequest";
+import { grpahCMSImageLoader } from "@/util";
 import moment from "moment";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -22,15 +23,12 @@ const AuthorDetails = ({ params }) => {
 
     fetchData();
   }, []);
-
-  console.log("AuthorDetailsAuthorDetails", author);
-
   return (
     <div className="text-center mt-20 mb-8 p-12 relative rounded-lg">
       <div className="flex justify-center">
         <Image
           unoptimized
-          //   loader={grpahCMSImageLoader}
+          loader={grpahCMSImageLoader}
           alt={author?.name}
           height="100"
           width="100"

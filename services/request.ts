@@ -233,14 +233,12 @@ export const submitComment = async (obj) => {
   });
 
   return result.json();
-  console.log("result", result);
 };
 
 const makeRequest = async (query, variables) => {
   try {
     const response = await request(graphqlAPI, query, variables);
     return response;
-    console.log("response", response);
   } catch (error) {
     console.error(error);
     return null;

@@ -8,3 +8,4 @@ export { default as Spinner } from "./Spinner";
 export { default as Hero } from "./Hero";
 export { default as TypeWriter } from "./TypeWriter";
 export { default as Row } from "./Row";
+export { default as AdjacentPostCard } from "./AdjacentPostCard";

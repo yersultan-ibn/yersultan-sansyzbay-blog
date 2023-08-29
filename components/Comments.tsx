@@ -3,25 +3,35 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import parse from "html-react-parser";
 import { getComments } from "@/services";
-
+// import useGraphQLRequest from "@/services/useGraphQLRequest";
 
 const Comments = ({ slug }) => {
   const [comments, setComments] = useState([]);
+  // const { getComments } = useGraphQLRequest();
 
   useEffect(() => {
-    getComments(slug).then((result) => {
-      setComments(result);
-    });
-  }, []);
+    const fetchData = async () => {
+      setComments(await getComments(slug));
+    };
 
+    fetchData();
+  }, []);
+  // useEffect(() => {
+  //   getComments(slug).then((result) => {
+  //     console.log("resultresult", result);
+  //     setComments(result);
+  //   });
+  // }, []);
+  console.log("comments", comments);
   return (
     <>
-      {comments.length > 0 && (
+      {/* Comments Component */}
+      {comments?.length > 0 && (
         <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
           <h3 className="text-xl mb-8 font-semibold border-b pb-4">
-            {comments.length} Comments
+            {comments?.length} Comments
           </h3>
-          {comments.map((comment, index) => (
+          {comments?.map((comment, index) => (
             <div key={index} className="border-b border-gray-100 mb-4 pb-4">
               <p className="mb-4">
                 <span className="font-semibold">{comment.name}</span> on{" "}

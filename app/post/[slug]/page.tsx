@@ -28,8 +28,7 @@ const PostDetails = ({ params }) => {
 
     fetchData();
   }, []);
-
-  console.log("PostDetails", post);
+  console.log("posttttttt", post.slug);
 
   return (
     <>
@@ -37,20 +36,11 @@ const PostDetails = ({ params }) => {
         <div className="flex justify-center">
           <div className="col-span-1 lg:col-span-8">
             <PostDetail post={post} />
-            <Author author={post?.author} />
-            {/* <AdjacentPosts slug={params.slug} createdAt={post?.createdAt} /> */}
+            {/* <Author author={post?.author} /> */}
+            {/* <AdjacentPosts createdAt={post?.createdAt} slug={params?.slug} /> */}
             <CommentsForm slug={params?.slug} />
             <Comments slug={params?.slug} />
           </div>
-          {/* <div className="col-span-1 lg:col-span-4">
-            <div className="relative lg:sticky top-8">
-              <PostWidget
-                slug={post?.slug}
-                categories={post?.categories?.map((category) => category.slug)}
-              />
-              <Categories />
-            </div>
-          </div> */}
         </div>
       </div>
     </>

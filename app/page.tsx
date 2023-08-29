@@ -35,20 +35,22 @@ export default function Home() {
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const postsData = await getPosts(startIndex, endIndex);
-      setPosts(postsData);
+
+      const sortedPosts = postsData.sort(
+        (a, b) => new Date(b.node.createdAt) - new Date(a.node.createdAt)
+      );
+
+      setPosts(sortedPosts);
       setIsLoading(false);
       window.scrollTo(0, 0);
     };
     fetchPosts();
   }, [currentPage]);
 
-  console.log("posts", posts);
-
   return (
     <>
       <TypeWriter hats={hats} />
       <div className="container mx-auto px-10 mb-8">
-        {/* <Hero /> */}
         <Row text="Избранные публикации" styles="mb-5" />
         <FeaturedPosts />
         <Row text="Последние публикации" styles="mb-5" />
@@ -64,7 +66,7 @@ export default function Home() {
           </div>
           <div className="lg:col-span-4 col-span-1">
             <div className="lg:sticky relative top-8">
-              {/* <PostWidget /> */}
+              <PostWidget />
               <Categories />
             </div>
           </div>

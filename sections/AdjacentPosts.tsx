@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import AdjacentPostCard from "@/components/AdjacentPostCard";
 import useGraphQLRequest from "@/services/useGraphQLRequest";
+import { AdjacentPostCard } from "@/components";
 
 const AdjacentPosts = ({ createdAt, slug }) => {
   const [adjacentPost, setAdjacentPost] = useState(null);
@@ -11,11 +11,14 @@ const AdjacentPosts = ({ createdAt, slug }) => {
 
   useEffect(() => {
     getAdjacentPosts(createdAt, slug).then((result) => {
+      console.log("resulllllllllllt", result);
       setAdjacentPost(result);
       setDataLoaded(true);
     });
   }, [slug]);
+
   console.log("adjacentPost", adjacentPost);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-8 gap-12 mb-8">
       {dataLoaded && (

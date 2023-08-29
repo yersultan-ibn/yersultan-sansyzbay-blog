@@ -5,7 +5,6 @@ import Link from "next/link";
 import rightIcon from "../public/right-arrow-white.svg";
 
 const FeaturedPostCard = ({ post }) => {
-  console.log("FeaturedPostCard", post);
   return (
     <div className="relative h-72">
       <div
@@ -28,7 +27,7 @@ const FeaturedPostCard = ({ post }) => {
       </div>
       <div className="flex flex-col rounded-lg p-4 absolute bottom-[-160px] text-left w-full h-full">
         <p className="text-white mb-4 text-shadow font-light text-[15px] leading-[20px]">
-          {post?.title}
+          {post?.title.slice(0, 80)}
         </p>
         <div className="flex justify-between items-baseline">
           <p className="block text-white  mb-4 text-shadow text-xs font-light">
