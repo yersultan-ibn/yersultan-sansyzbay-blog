@@ -19,7 +19,7 @@ import { hats } from "@/constants";
 import useGraphQLRequest from "@/services/useGraphQLRequest";
 interface PostData {
   id: string;
-  node: any; // Use a more specific type if available
+  node: any;
 }
 
 export default function Home() {
