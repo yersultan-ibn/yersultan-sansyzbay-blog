@@ -4,9 +4,15 @@ import { useRouter } from "next/navigation";
 import { PostCard, Categories, Spinner } from "@/components";
 import useGraphQLRequest from "@/services/useGraphQLRequest";
 
-const CategoryPost = ({ params }) => {
-  const [posts, setPosts] = useState([]);
-  const [categories, setCategories] = useState([]);
+interface CategoryPostProps {
+  params: {
+    slug: string;
+  };
+}
+
+const CategoryPost: React.FC<CategoryPostProps> = ({ params }) => {
+  const [posts, setPosts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const router = useRouter();
 
   const { getCategoryPost, getCategories } = useGraphQLRequest();

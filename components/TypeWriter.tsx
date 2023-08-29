@@ -1,7 +1,21 @@
-// @/components/Home/TypeWriter.js
 import React, { useState, useEffect } from "react";
 
-const TypeWriter = ({ appendClass, hats, prefix }) => {
+interface Hat {
+  prep?: string;
+  suffix: string;
+}
+
+interface TypeWriterProps {
+  appendClass?: string;
+  hats: Hat[];
+  prefix: string;
+}
+
+const TypeWriter: React.FC<TypeWriterProps> = ({
+  appendClass,
+  hats,
+  prefix,
+}: TypeWriterProps): JSX.Element => {
   // Outer container base class + append custom class
   let className = "flex flex-col gap-4";
   if (appendClass) className += " " + appendClass;
@@ -9,12 +23,12 @@ const TypeWriter = ({ appendClass, hats, prefix }) => {
   // Typewriter effect base class
   const typeWriterClass =
     "font-bold border-b-2 border-b-blue-400 border-r-2 pr-1" +
-    "animate-cursor overflow-hidden whitespace-nowrap transition-[width] ease-in-out duration-1000 mr-auto";
+    " animate-cursor overflow-hidden whitespace-nowrap transition-[width] ease-in-out duration-1000 mr-auto";
 
   // State of current hat index
-  const [currentHat, setCurrentHat] = useState(0);
+  const [currentHat, setCurrentHat] = useState<number>(0);
   // State to toggle word collapse effect
-  const [collapseClass, setCollapseClass] = useState(" w-0");
+  const [collapseClass, setCollapseClass] = useState<string>(" w-0");
 
   useEffect(() => {
     setTimeout(() => setCollapseClass(" w-full"), 100);
@@ -28,7 +42,7 @@ const TypeWriter = ({ appendClass, hats, prefix }) => {
          * is collapsed by incrementing the index
          */
         setCurrentHat((oldVal) => {
-          let hatIndex;
+          let hatIndex: number;
           if (oldVal >= hats.length - 1) {
             hatIndex = 0;
           } else {
@@ -48,7 +62,7 @@ const TypeWriter = ({ appendClass, hats, prefix }) => {
 
     // Cleanup interval timer
     return () => clearInterval(id);
-  }, []); //  eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-dep
 
   return (
     <div className="py-[80px] mb-10 bg-[#f9f9f4]">

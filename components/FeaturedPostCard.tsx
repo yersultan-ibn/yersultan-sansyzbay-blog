@@ -4,7 +4,30 @@ import Image from "next/image";
 import Link from "next/link";
 import rightIcon from "../public/right-arrow-white.svg";
 
-const FeaturedPostCard = ({ post }) => {
+interface Author {
+  name: string;
+  photo: {
+    url: string;
+  };
+}
+
+interface FeaturedPost {
+  featuredImage: {
+    url: string;
+  };
+  author: Author;
+  title: string;
+  createdAt: string;
+  slug: string;
+}
+
+interface FeaturedPostCardProps {
+  post: FeaturedPost;
+}
+
+const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({
+  post,
+}): JSX.Element => {
   return (
     <div className="relative h-72">
       <div

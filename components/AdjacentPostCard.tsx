@@ -2,7 +2,24 @@ import React from "react";
 import moment from "moment";
 import Link from "next/link";
 
-const AdjacentPostCard = ({ post, position }) => (
+interface Post {
+  featuredImage: {
+    url: string;
+  };
+  createdAt: string;
+  title: string;
+  slug: string;
+}
+
+interface AdjacentPostCardProps {
+  post: Post;
+  position: "LEFT" | "RIGHT";
+}
+
+const AdjacentPostCard: React.FC<AdjacentPostCardProps> = ({
+  post,
+  position,
+}) => (
   <>
     <div
       className="absolute rounded-lg bg-center bg-no-repeat bg-cover shadow-md inline-block w-full h-72"

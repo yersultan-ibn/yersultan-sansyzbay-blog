@@ -1,67 +1,43 @@
+import React, { useRef, useState, useEffect, ChangeEvent } from "react";
+import moment from "moment";
+import parse from "html-react-parser";
 import { submitComment } from "@/services";
-import React, { useRef, useState, useEffect } from "react";
 
-const CommentsForm = ({ slug }) => {
-  const [error, setError] = useState(false);
-  const [localStorage, setLocalStorage] = useState(null);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [formData, setFormData] = useState({
+interface CommentFormProps {
+  slug: string;
+}
+
+interface FormData {
+  name: string | null;
+  email: string | null;
+  comment: string | null;
+  storeData: boolean;
+}
+
+const CommentsForm: React.FC<CommentFormProps> = ({ slug }): JSX.Element => {
+  const [error, setError] = useState<boolean>(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>({
     name: null,
     email: null,
     comment: null,
     storeData: false,
   });
-  // const commentEl = useRef();
-  // const nameEl = useRef();
-  // const emailEl = useRef();
-  // const storeDataEl = useRef();
 
   useEffect(() => {
-    setLocalStorage(window.localStorage);
-    const initalFormData = {
-      name: window.localStorage.getItem("name"),
-      email: window.localStorage.getItem("email"),
+    const localStorageData = window.localStorage;
+    const initialFormData = {
+      name: localStorageData.getItem("name"),
+      email: localStorageData.getItem("email"),
       storeData:
-        window.localStorage.getItem("name") ||
-        window.localStorage.getItem("email"),
+        localStorageData.getItem("name") || localStorageData.getItem("email"),
     };
-    setFormData(initalFormData);
+    setFormData(initialFormData);
   }, []);
 
-  // const handleCommentSubmission = () => {
-  //     setError(false);
-
-  //     const {value: comment} = commentEl.current;
-  //     const {value: name} = nameEl.current;
-  //     const {value: email} = emailEl.current;
-  //     const {checked: storeData} = storeDataEl.current;
-
-  //     if(!comment || !name || !email){
-  //         setError(true);
-  //         return;
-  //     }
-
-  //     const commonObj = {
-  //         name, email, comment, slug
-  //     };
-
-  //     if(storeData) {
-  //         localStorage.setItem('name', name);
-  //         localStorage.setItem('email', email);
-  //     } else {
-  //         localStorage.removeItem('name', name);
-  //         localStorage.removeItem('email', email);
-  //     }
-
-  //     submitComment(commentObj)
-  //     .then((res)=>{
-  //         setTimeout(()=>{
-  //             setShowSuccessMessage(true);
-  //         })
-  //     })
-  // }
-
-  const onInputChange = (e) => {
+  const onInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { target } = e;
     if (target.type === "checkbox") {
       setFormData((prevState) => ({
@@ -79,10 +55,12 @@ const CommentsForm = ({ slug }) => {
   const handlePostSubmission = () => {
     setError(false);
     const { name, email, comment, storeData } = formData;
+
     if (!name || !email || !comment) {
       setError(true);
       return;
     }
+
     const commentObj = {
       name,
       email,
@@ -91,24 +69,22 @@ const CommentsForm = ({ slug }) => {
     };
 
     if (storeData) {
-      localStorage.setItem("name", name);
-      localStorage.setItem("email", email);
+      window.localStorage.setItem("name", name as string);
+      window.localStorage.setItem("email", email as string);
     } else {
-      localStorage.removeItem("name");
-      localStorage.removeItem("email");
+      window.localStorage.removeItem("name");
+      window.localStorage.removeItem("email");
     }
 
     submitComment(commentObj).then((res) => {
       if (res.createComment) {
-        if (!storeData) {
-          formData.name = "";
-          formData.email = "";
-        }
-        formData.comment = "";
-        setFormData((prevState) => ({
-          ...prevState,
-          ...formData,
-        }));
+        const updatedFormData: FormData = {
+          name: storeData ? name : "",
+          email: storeData ? email : "",
+          comment: "",
+          storeData,
+        };
+        setFormData(updatedFormData);
         setShowSuccessMessage(true);
         setTimeout(() => {
           setShowSuccessMessage(false);
@@ -116,7 +92,6 @@ const CommentsForm = ({ slug }) => {
       }
     });
   };
-
   return (
     <div className="bg-white shadow-lg p-8 pb-12 mb-8">
       <h1 className="text-xl mb-8 font-semibold border-b pb-4">Comment</h1>

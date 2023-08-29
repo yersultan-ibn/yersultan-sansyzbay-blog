@@ -4,6 +4,9 @@ import useGraphQLRequest from "@/services/useGraphQLRequest";
 import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+interface FeaturedPost {
+  id: string;
+}
 
 const responsive = {
   superLargeDesktop: {
@@ -24,14 +27,14 @@ const responsive = {
   },
 };
 
-const FeaturedPosts = () => {
-  const [featuredPosts, setFeaturedPosts] = useState([]);
-  const [dataLoaded, setDataLoaded] = useState(false);
+const FeaturedPosts: React.FC = () => {
+  const [featuredPosts, setFeaturedPosts] = useState<FeaturedPost[]>([]);
+  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
   const { getFeaturedPosts } = useGraphQLRequest();
 
   useEffect(() => {
-    getFeaturedPosts().then((result) => {
+    getFeaturedPosts().then((result: FeaturedPost[]) => {
       setFeaturedPosts(result);
       setDataLoaded(true);
     });

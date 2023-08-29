@@ -2,15 +2,6 @@ import { gql, request } from "graphql-request";
 
 export const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-interface Author {
-  bio: string;
-  name: string;
-  id: string;
-  photo: {
-    url: string;
-  };
-}
-
 interface Post {
   title: string;
   excerpt: string;
@@ -62,6 +53,54 @@ interface FeaturedPost {
 interface Category {
   name: string;
   slug: string;
+}
+interface AdjacentPost {
+  title: string;
+  featuredImage: {
+    url: string;
+  };
+  createdAt: string;
+  slug: string;
+}
+
+interface AdjacentPosts {
+  next: AdjacentPost | null;
+  previous: AdjacentPost | null;
+}
+
+interface Author {
+  bio: string;
+  name: string;
+  id: string;
+  photo: {
+    url: string;
+  };
+}
+
+interface Category {
+  name: string;
+  slug: string;
+}
+
+interface Post {
+  title: string;
+  excerpt: string;
+  featuredImage: {
+    url: string;
+  };
+  author: Author;
+  createdAt: string;
+  slug: string;
+  content: {
+    raw: string;
+  };
+  categories: Category[];
+}
+
+interface Comment {
+  name: string;
+  createdAt: string;
+  comment: string;
 }
 
 const useGraphQLRequest = () => {
@@ -186,7 +225,10 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getAdjacentPosts = async (createdAt, slug) => {
+  const getAdjacentPosts = async (
+    createdAt: string,
+    slug: string
+  ): Promise<AdjacentPosts> => {
     const query = gql`
       query GetAdjacentPosts($createdAt: DateTime!, $slug: String!) {
         next: posts(
@@ -225,7 +267,7 @@ const useGraphQLRequest = () => {
     };
   };
 
-  const getFeaturedPosts = async () => {
+  const getFeaturedPosts = async (): Promise<FeaturedPost> => {
     const query = gql`
     query GetCategoryPost() {
       posts(where: {featuredPost: true}) {
@@ -254,7 +296,7 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getCategoryPost = async (slug) => {
+  const getCategoryPost = async (slug: string): Promise<Post[] | null> => {
     const query = gql`
       query GetCategoryPost($slug: String!) {
         postsConnection(where: { categories_some: { slug: $slug } }) {
@@ -296,7 +338,7 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getCategories = async () => {
+  const getCategories = async (): Promise<Category[] | null> => {
     const query = gql`
       query GetCategories {
         categories {
@@ -314,7 +356,10 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getSimilarPost = async (categories, slug) => {
+  const getSimilarPost = async (
+    categories: string[],
+    slug: string
+  ): Promise<Post[] | null> => {
     const query = gql`
       query GetPostDetails($slug: String!, $categories: [String!]) {
         posts(
@@ -342,7 +387,7 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getRecentPosts = async () => {
+  const getRecentPosts = async (): Promise<Post[] | null> => {
     const query = gql`
     query GetPostDetails() {
      posts(
@@ -366,7 +411,7 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getComments = async (slug) => {
+  const getComments = async (slug: string): Promise<Comment[] | null> => {
     const query = gql`
       query GetComments($slug: String!) {
         comments(where: { post: { slug: $slug } }) {
@@ -376,8 +421,10 @@ const useGraphQLRequest = () => {
         }
       }
     `;
+
     const variables = { slug };
     const response = await makeRequest(query, variables);
+
     if (response && response.comments) {
       return response.comments;
     } else {
@@ -399,4 +446,3 @@ const useGraphQLRequest = () => {
   };
 };
 export default useGraphQLRequest;
-

@@ -2,14 +2,29 @@ import { grpahCMSImageLoader } from "@/util";
 import Image from "next/image";
 import React from "react";
 
-const Author = ({ author }) => {
+interface AuthorData {
+  name: string;
+  bio: string;
+  photo: {
+    url: string;
+  };
+}
 
+interface AuthorProps {
+  author: AuthorData;
+}
+
+interface GraphCMSImageLoader extends ImageLoaderProps {
+  src: string;
+}
+
+const Author: React.FC<AuthorProps> = ({ author }) => {
   return (
     <div className="text-center mt-20 mb-8 p-12 relative rounded-lg bg-black bg-opacity-20">
       <div className="absolute left-0 right-0 -top-14">
         <Image
           unoptimized
-            loader={grpahCMSImageLoader}
+          loader={({ src }: GraphCMSImageLoader) => grpahCMSImageLoader(src)}
           alt={author?.name}
           height="100"
           width="100"
