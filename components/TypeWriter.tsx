@@ -55,7 +55,7 @@ const TypeWriter = ({ appendClass, hats, prefix }) => {
       <div className={className}>
         <div className="text-4xl md:text-4xl text-center mx-auto">
           Добро пожаловать на
-          <span className="text-blue-400 font-bold"> офицальный сайт</span>
+          <span className="text-[#1665d8] font-bold"> офицальный сайт</span>
         </div>
         <div className="flex gap-2 text-2xl md:text-4xl mx-auto">
           <div className="shrink-0 whitespace-nowrap ml-auto">

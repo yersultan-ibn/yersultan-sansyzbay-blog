@@ -1,5 +1,6 @@
 "use client";
 import useGraphQLRequest from "@/services/useGraphQLRequest";
+import { grpahCMSImageLoader } from "@/util";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +18,7 @@ const PostWidget = ({ categories, slug }) => {
       getRecentPosts().then((result) => setRelatedPosts(result));
     }
   }, []);
-
+  console.log("relatedPosts", relatedPosts);
   return (
     <div className="bg-[#f9f8f4] shadow-lg rounded-lg p-8 pb-12 mb-8">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">
@@ -27,7 +28,7 @@ const PostWidget = ({ categories, slug }) => {
         <div key={index} className="flex items-center w-full mb-4">
           <div className="w-16 flex-none">
             <Image
-              // loader={grpahCMSImageLoader}
+              loader={grpahCMSImageLoader}
               alt={post.title}
               height="60"
               width="60"

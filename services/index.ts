@@ -233,17 +233,21 @@ export const submitComment = async (obj) => {
   });
 
   return result.json();
-  console.log("result", result);
+  console.log("submitComment", submitComment);
 };
 
-export async function getComments(slug) {
+export const getComments = async (slug) => {
   try {
     const res = await request(graphqlAPI, gqlGetComments, { slug });
-    return res.comments;
+    // return res.comments;
+    return console.log(
+      "getCommentsgetCommentsgetCommentsgetCommentsgetComments",
+      res.comments
+    );
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 export const getPosts = async (startIndex, endIndex) => {
   try {

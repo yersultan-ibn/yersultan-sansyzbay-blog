@@ -2,19 +2,80 @@ import { gql, request } from "graphql-request";
 
 export const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
+interface Author {
+  bio: string;
+  name: string;
+  id: string;
+  photo: {
+    url: string;
+  };
+}
+
+interface Post {
+  title: string;
+  excerpt: string;
+  featuredImage: {
+    url: string;
+  };
+  author: {
+    name: string;
+    bio: string;
+    photo: {
+      url: string;
+    };
+  };
+  createdAt: string;
+  slug: string;
+  content: {
+    raw: string;
+  };
+  categories: {
+    name: string;
+    slug: string;
+  }[];
+}
+
+interface PostEdge {
+  cursor: string;
+  node: Post;
+}
+
+interface PostsConnection {
+  edges: PostEdge[];
+}
+
+interface FeaturedPost {
+  author: {
+    name: string;
+    photo: {
+      url: string;
+    };
+  };
+  featuredImage: {
+    url: string;
+  };
+  title: string;
+  slug: string;
+  createdAt: string;
+}
+
+interface Category {
+  name: string;
+  slug: string;
+}
+
 const useGraphQLRequest = () => {
   const makeRequest = async (query, variables) => {
     try {
       const response = await request(graphqlAPI, query, variables);
       return response;
-      console.log("response", response);
     } catch (error) {
       console.error(error);
       return null;
     }
   };
 
-  const getPosts = async (startIndex, endIndex) => {
+  const getPosts = async (startIndex, endIndex): Promise<Post[] | null> => {
     const query = gql`
       query Assets($first: Int!, $skip: Int!) {
         postsConnection(first: $first, skip: $skip) {
@@ -53,7 +114,7 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getPostDetails = async (slug) => {
+  const getPostDetails = async (slug): Promise<Post[] | null> => {
     const query = gql`
       query GetPostDetails($slug: String!) {
         post(where: { slug: $slug }) {
@@ -89,7 +150,7 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getAuthorDetails = async (slug) => {
+  const getAuthorDetails = async (slug): Promise<Author[] | null> => {
     const query = gql`
       query GetAuthorDetails($slug: String!) {
         post(where: { slug: $slug }) {
@@ -154,11 +215,14 @@ const useGraphQLRequest = () => {
         }
       }
     `;
-    const variables = { next: res.next, previous: res.previous };
-    const response = await makeRequest(query, variables);
-    if (response && response.post.author) {
-      return response.post.author;
-    }
+
+    const variables = { createdAt, slug };
+    const response = await request(graphqlAPI, query, { createdAt, slug });
+
+    return {
+      next: result.next[0],
+      previous: result.previous[0],
+    };
   };
 
   const getFeaturedPosts = async () => {
@@ -302,6 +366,25 @@ const useGraphQLRequest = () => {
     }
   };
 
+  const getComments = async (slug) => {
+    const query = gql`
+      query GetComments($slug: String!) {
+        comments(where: { post: { slug: $slug } }) {
+          name
+          createdAt
+          comment
+        }
+      }
+    `;
+    const variables = { slug };
+    const response = await makeRequest(query, variables);
+    if (response && response.comments) {
+      return response.comments;
+    } else {
+      return null;
+    }
+  };
+
   return {
     getPosts,
     getPostDetails,
@@ -312,6 +395,8 @@ const useGraphQLRequest = () => {
     getCategories,
     getSimilarPost,
     getRecentPosts,
+    getComments,
   };
 };
 export default useGraphQLRequest;
+

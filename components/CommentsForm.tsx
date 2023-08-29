@@ -1,7 +1,5 @@
-"use client";
-import React, { useState, useEffect } from "react";
 import { submitComment } from "@/services";
-import CustomButton from "./Button";
+import React, { useRef, useState, useEffect } from "react";
 
 const CommentsForm = ({ slug }) => {
   const [error, setError] = useState(false);
@@ -13,7 +11,10 @@ const CommentsForm = ({ slug }) => {
     comment: null,
     storeData: false,
   });
-//   console.log('slugslugslugslugslugslugslugslugslug',slug)`
+  // const commentEl = useRef();
+  // const nameEl = useRef();
+  // const emailEl = useRef();
+  // const storeDataEl = useRef();
 
   useEffect(() => {
     setLocalStorage(window.localStorage);
@@ -26,6 +27,39 @@ const CommentsForm = ({ slug }) => {
     };
     setFormData(initalFormData);
   }, []);
+
+  // const handleCommentSubmission = () => {
+  //     setError(false);
+
+  //     const {value: comment} = commentEl.current;
+  //     const {value: name} = nameEl.current;
+  //     const {value: email} = emailEl.current;
+  //     const {checked: storeData} = storeDataEl.current;
+
+  //     if(!comment || !name || !email){
+  //         setError(true);
+  //         return;
+  //     }
+
+  //     const commonObj = {
+  //         name, email, comment, slug
+  //     };
+
+  //     if(storeData) {
+  //         localStorage.setItem('name', name);
+  //         localStorage.setItem('email', email);
+  //     } else {
+  //         localStorage.removeItem('name', name);
+  //         localStorage.removeItem('email', email);
+  //     }
+
+  //     submitComment(commentObj)
+  //     .then((res)=>{
+  //         setTimeout(()=>{
+  //             setShowSuccessMessage(true);
+  //         })
+  //     })
+  // }
 
   const onInputChange = (e) => {
     const { target } = e;
@@ -84,17 +118,15 @@ const CommentsForm = ({ slug }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
-      <h3 className="text-xl mb-8 font-semibold border-b pb-4">
-        Leave a Reply
-      </h3>
+    <div className="bg-white shadow-lg p-8 pb-12 mb-8">
+      <h1 className="text-xl mb-8 font-semibold border-b pb-4">Comment</h1>
       <div className="grid grid-cols-1 gap-4 mb-4">
         <textarea
           value={formData.comment}
           onChange={onInputChange}
-          className="p-4 outline-none w-full rounded-lg h-40 focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-          name="comment"
+          className="p-4 outline-none w-full rounded-lg focus:ring-2 text-gray-700 bg-gray-100 focus:ring-gray-200"
           placeholder="Comment"
+          name="comment"
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
@@ -102,15 +134,15 @@ const CommentsForm = ({ slug }) => {
           type="text"
           value={formData.name}
           onChange={onInputChange}
-          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
+          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-100 text-gray-700"
           placeholder="Name"
           name="name"
         />
         <input
-          type="email"
+          type="text"
           value={formData.email}
           onChange={onInputChange}
-          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
+          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-100 text-gray-700"
           placeholder="Email"
           name="email"
         />
@@ -125,33 +157,26 @@ const CommentsForm = ({ slug }) => {
             name="storeData"
             value="true"
           />
-          <label className="text-gray-500 cursor-pointer" htmlFor="storeData">
-            {" "}
-            Save my name, email in this browser for the next time I comment.
+          <label
+            className="text-gray-500 cursor-pointer ml-2"
+            htmlFor="storeData"
+          >
+            Save my email & number for the next time i comment
           </label>
         </div>
       </div>
-      {error && (
-        <p className="text-xs text-red-500">All fields are mandatory</p>
-      )}
+      {error && <p className="text-xs text-red-500">All fields are required</p>}
       <div className="mt-8">
         <button
           type="button"
           onClick={handlePostSubmission}
-          className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer"
+          className="transition duration-500 ease hover:bg-indigo-900 inline-block bg-pink-600 text-lg rounded-full text-white px-8 py-3 cursor-pointer"
         >
           Post Comment
         </button>
-        {/* <CustomButton
-          onClick={handlePostSubmission}
-          textStyles="text-[#1565D8] hover:text-[#fff]"
-          title="Посмотреть все публикации"
-          containerStyles="transition duration-500 ease hover:bg-[#6246ea]  inline-block text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer border border-solid border-2 border-[#1565D8] rounded-[10px] "
-        /> */}
-
         {showSuccessMessage && (
           <span className="text-xl float-right font-semibold mt-3 text-green-500">
-            Comment submitted for review
+            Comment submitted for Review
           </span>
         )}
       </div>
