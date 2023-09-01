@@ -18,8 +18,8 @@ const Categories: React.FC = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="">
-      <h3 className="text-[30px] mb-8 font-semibold border-b pt-4 pb-4 text-center border-t uppercase">
+    <>
+      <h3 className="sm:text-[30px] text-[20px] mb-8 font-semibold border-b pt-4 pb-4 text-center border-t uppercase">
         КНИГИ
       </h3>
       {categories?.map((category: Category, index: number) => (
@@ -34,7 +34,7 @@ const Categories: React.FC = (): JSX.Element => {
           </span>
         </Link>
       ))}
-    </div>
+    </>
   );
 };
 

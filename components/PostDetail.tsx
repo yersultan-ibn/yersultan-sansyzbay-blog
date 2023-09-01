@@ -60,7 +60,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
     if (obj) {
       if (obj.bold) {
         modifiedText = (
-          <b className="bg-[#eccafa] leading-[1.8] font-semibold" key={index}>
+          <b className="bg-[#f3eabc] leading-[1.8] font-semibold" key={index}>
             {text}
           </b>
         );
@@ -77,13 +77,16 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
     switch (type) {
       case "heading-three":
         return (
-          <h3 key={index} className="text-xl">
+          <h3 key={index} className="md:text-xl">
             {modifiedText}
           </h3>
         );
       case "paragraph":
         return (
-          <p key={index} className="mb-8 leading-loose text-[20px]">
+          <p
+            key={index}
+            className="mb-8 leading-loose md:text-[20px] text-[18px]"
+          >
             {modifiedText}
           </p>
         );
@@ -110,21 +113,21 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
 
   return (
     <>
-      <div className="bg-white rounded-lg lg:p-8 pb-12 mb-8 w-[70%] mx-auto">
-        <div className="relative overflow-hidden shadow-md mb-6 w-[60%] mx-auto">
+      <div className="bg-white rounded-lg lg:p-8 pb-12 md:mb-8 md:w-[70%] w-full mx-auto">
+        <div className="relative overflow-hidden shadow-md mb-6 md:w-[60%] w-[95%] mx-auto">
           <img
             src={post?.featuredImage?.url}
             alt=""
-            className="object-top h-full w-full object-cover  shadow-lg rounded-t-lg lg:rounded-lg"
+            className="object-top h-full w-full object-cover  shadow-lg"
           />
         </div>
         <div className="px-4 lg:px-0">
-          <h1 className="mb-8 text-3xl font-semibold text-center">
+          <h1 className="mb-8 md:text-3xl text-[24px] font-semibold text-center">
             {post?.title}
           </h1>
           <Link href={`/post/${post?.slug}/author/${post?.author?.name}`}>
-            <div className="flex justify-center  items-center mb-8 w-full">
-              <div className="hidden md:flex items-center justify-center lg:mb-0 lg:w-auto mr-3">
+            <div className="flex justify-center items-center mb-8 w-full">
+              <div className="md:flex items-center justify-center lg:mb-0 w-auto mr-3">
                 <img
                   alt={post?.author?.name}
                   height="70"

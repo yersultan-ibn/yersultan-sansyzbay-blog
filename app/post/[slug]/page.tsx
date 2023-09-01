@@ -37,7 +37,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ params }) => {
 
   return (
     <>
-      <div className="container mx-auto px-10 mb-8">
+      <div className="container mx-auto md:px-10 mb-8">
         <div className="flex justify-center">
           <div className="col-span-1 lg:col-span-8">
             <PostDetail post={post} />

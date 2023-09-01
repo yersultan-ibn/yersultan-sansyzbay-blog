@@ -65,13 +65,13 @@ const TypeWriter: React.FC<TypeWriterProps> = ({
   }, []); // eslint-disable-line react-hooks/exhaustive-dep
 
   return (
-    <div className="py-[80px] mb-10 bg-[#f9f9f4]">
+    <div className="md:py-[80px] py-[50px] mb-10 bg-[#f9f9f4]">
       <div className={className}>
-        <div className="text-4xl md:text-4xl text-center mx-auto">
+        <div className="text-3xl sm:text-4xl md:text-4xl text-center mx-auto">
           Добро пожаловать на
           <span className="text-[#1665d8] font-bold"> офицальный сайт</span>
         </div>
-        <div className="flex gap-2 text-2xl md:text-4xl mx-auto">
+        <div className="flex gap-2 sm:text-2xl text-1xl md:text-4xl mx-auto">
           <div className="shrink-0 whitespace-nowrap ml-auto">
             {prefix}
             {hats[currentHat].prep ? ` ${hats[currentHat].prep} ` : ""}

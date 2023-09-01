@@ -29,18 +29,32 @@ const Header: React.FC = (): JSX.Element => {
           <div className="flex justify-between items-center py-5">
             <div>
               <Link href="/">
-                <p className="text-[#001858] lg:text-[35px] text-[20px] font-semibold">
+                {/* <p className="text-[#001858] lg:text-[35px] text-[20px] font-semibold">
                   Yersultan
                   <span className="text-[#6246EA] text-[20px]">.Blog</span>
-                </p>
+                </p> */}
+                <img
+                  className="lg:w-[200px] w-[140px] absolute sm:top-[15px] top-[18px] lg:left-[98px]"
+                  src="/logo.png"
+                  alt=""
+                />
               </Link>
             </div>
             <div className="md:hidden">
               <button
                 onClick={toggleMenu}
-                className="text-[18px] font-extrabold"
+                type="button"
+                className={`w-8 h-8 flex justify-around flex-col flex-wrap z-10 cursor-pointer`}
               >
-                Меню
+                <div
+                  className={`bg-black block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
+                />
+                <div
+                  className={`bg-black block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
+                />
+                <div
+                  className={`bg-black block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
+                />
               </button>
             </div>
             <div className="hidden md:block">
