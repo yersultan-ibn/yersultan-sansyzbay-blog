@@ -7,3 +7,4 @@ export { default as Spinner } from "./Spinner";
 export { default as TypeWriter } from "./TypeWriter";
 export { default as Row } from "./Row";
 export { default as AdjacentPostCard } from "./AdjacentPostCard";
+export { default as Footer } from "./Footer";

@@ -18,31 +18,32 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <ReactPaginate
-      previousLabel={"←"}
-      nextLabel={"→"}
-      breakLabel={"..."}
-      pageCount={pageCount}
-      onPageChange={handlePageChange}
-      forcePage={currentPage}
-      containerClassName={"flex justify-center mt-4"}
-      pageClassName={"pagination_link"}
-      previousClassName={"pagination_link"}
-      nextClassName={"pagination_link"}
-      breakClassName={"pagination_link"}
-      activeClassName={"bg-[#1565D8] text-[#1565D8]"}
-      disabledClassName={"cursor-not-allowed"}
-      previousLinkClassName={"cursor-pointer"}
-      nextLinkClassName={"cursor-pointer"}
-      pageLinkClassName={"cursor-pointer"}
-      previousLinkHref={"#"}
-      nextLinkHref={"#"}
-      pageLinkHref={"#"}
-      pageLinkStyle={{ cursor: "pointer" }}
-      previousLinkStyle={{ cursor: "pointer" }}
-      nextLinkStyle={{ cursor: "pointer" }}
-      pageRangeDisplayed={5}
-    />
+    <div className="flex justify-center mt-4 overflow-x-auto">
+      {/* Wrap the pagination component in a container with horizontal scrolling */}
+      <ReactPaginate
+        previousLabel={"←"}
+        nextLabel={"→"}
+        breakLabel={"..."}
+        pageCount={pageCount}
+        onPageChange={handlePageChange}
+        forcePage={currentPage}
+        containerClassName={"flex"}
+        pageClassName={"pagination_link"}
+        previousClassName={"pagination_link"}
+        nextClassName={"pagination_link"}
+        breakClassName={"pagination_link"}
+        activeClassName={"bg-[#1565D8] text-white"}
+        disabledClassName={"cursor-not-allowed text-gray-400"}
+        previousLinkClassName={"cursor-pointer"}
+        nextLinkClassName={"cursor-pointer"}
+        pageLinkClassName={"cursor-pointer"}
+
+        // Use Tailwind CSS classes for adaptive design
+        pageLinkClassName={"text-sm sm:text-base md:text-lg px-2"}
+        previousLinkClassName={"text-sm sm:text-base md:text-lg px-2"}
+        nextLinkClassName={"text-sm sm:text-base md:text-lg px-2"}
+      />
+    </div>
   );
 };
 
