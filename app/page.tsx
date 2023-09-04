@@ -40,10 +40,12 @@ export default function Home() {
       const endIndex: number = startIndex + itemsPerPage;
 
       const postsData = await getPosts(startIndex, endIndex);
-
-      if (postsData !== null) {
-        setPosts(postsData);
-      }
+      const sortedPosts = postsData.sort((a: any, b: any) => {
+        const dateA = new Date(a.node.createdAt);
+        const dateB = new Date(b.node.createdAt);
+        return dateB.getTime() - dateA.getTime();
+      });
+      setPosts(sortedPosts);
 
       setIsLoading(false);
       window.scrollTo(0, 0);
