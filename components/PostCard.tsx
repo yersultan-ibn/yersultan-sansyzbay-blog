@@ -36,12 +36,12 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ post }): JSX.Element => {
   return (
-    <div className="bg-[#f9f8f4] shadow-lg rounded-lg p-0  lg:p-8 pt-4 sm:pb-12 pb-5 mb-8 border border-[#000]">
-      <div className="relative overflow-hidden sm:shadow-md pb-80 mb-6 mx-auto h-full sm:w-[400px] w-full">
+    <div className="bg-[#f9f8f4] shadow-lg rounded-lg p-0 lg:p-8 pt-5 sm:pb-12 pb-5 mb-8 border border-[#000]">
+      <div className="relative overflow-hidden sm:shadow-md mb-6 mx-auto sm:w-[400px] w-full">
         <img
           src={post?.featuredImage?.url}
           alt={post?.name}
-          className="object-top absolute h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg md:px-0 px-5"
+          className="object-top  w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg md:px-0 px-5"
         />
       </div>
       <div className="relative flex xl:justify-between xl:flex-row flex-col text-center items-center justify-center mb-8 w-full border-b border-[#000] pb-3">
