@@ -60,7 +60,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
     if (obj) {
       if (obj.bold) {
         modifiedText = (
-          <b className="bg-[#f3eabc] leading-[1.8] font-semibold" key={index}>
+          <b className="bg-[#ffee95] leading-[1.8] font-semibold" key={index}>
             {text}
           </b>
         );
