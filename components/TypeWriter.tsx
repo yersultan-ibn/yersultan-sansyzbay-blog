@@ -65,7 +65,7 @@ const TypeWriter: React.FC<TypeWriterProps> = ({
   }, []); // eslint-disable-line react-hooks/exhaustive-dep
 
   return (
-    <div className="md:py-[80px] py-[50px] mb-10 bg-[#f9f9f4]">
+    <div className="md:py-[80px] dark:bg-[#283445] py-[50px] mb-10 light:bg-[#f9f9f4]">
       <div className={className}>
         <div className="text-3xl sm:text-4xl md:text-4xl text-center mx-auto">
           Добро пожаловать на

@@ -43,12 +43,12 @@ const AuthorDetails: React.FC<AuthorDetailsProps> = ({ params }) => {
             src={author?.photo?.url}
           />
         </div>
-        <h3 className="text-black mt-4 mb-4 text-xl font-bold">
+        <h3 className="light:text-black mt-4 mb-4 text-xl font-bold">
           {author?.name}
         </h3>
-        <p className="text-black text-ls">{author?.bio}</p>
+        <p className="light:text-black text-ls">{author?.bio}</p>
         <span className="align-middle mr-2">Дата присоединения:</span>
-        <span className="align-middle text-[#397ade] font-light text-[15px]">
+        <span className="align-middle light:text-[#397ade] font-light text-[15px]">
           {moment(author?.createdAt).format("MMM DD, YYYY")}
         </span>
         <Row text={`Публикации: ${author?.name}`} styles="my-5" />

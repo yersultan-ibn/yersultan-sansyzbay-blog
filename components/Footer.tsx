@@ -9,7 +9,7 @@ const Footer = () => {
     columns.push(skills.slice(i * columnSize, (i + 1) * columnSize));
   }
   return (
-    <div className="md:pt-20 pt-10 bg-black text-white">
+    <div className="md:pt-20 pt-10 bg-black dark:bg-[#283445] light:bg-black text-white">
       <h4 className="text-center text-[28px] uppercase font-extrabold">
         My Tech Stack
       </h4>
@@ -18,7 +18,10 @@ const Footer = () => {
           {columns.map((column, columnIndex) => (
             <div key={columnIndex}>
               {column.map((skill, index) => (
-                <p key={skill} className={`text-center md:mb-3 md:border-none border-b border-white py-2`}>
+                <p
+                  key={skill}
+                  className={`text-center md:mb-3 md:border-none border-b border-white py-2`}
+                >
                   {skill}
                 </p>
               ))}

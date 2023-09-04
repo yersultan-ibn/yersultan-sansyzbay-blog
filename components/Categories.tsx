@@ -26,7 +26,7 @@ const Categories: React.FC = (): JSX.Element => {
       {categories?.map((category: Category, index: number) => (
         <Link key={index} href={`/category/${category.slug}`}>
           <span
-            className={`relative uppercase custom-clip-path bg-[#f1cf71] cursor-pointer block ${
+            className={`relative uppercase custom-clip-path dark:text-black bg-[#f1cf71] cursor-pointer block ${
               index === categories.length - 1 ? "border-b-0" : "border-b"
             } text-center  pt-[6px] pb-[6px] mb-3`}
           >
