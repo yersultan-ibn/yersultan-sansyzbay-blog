@@ -95,7 +95,6 @@ export default function Home() {
           />
         ) : null}
       </div>
-      <Footer />
     </>
   );
 }
