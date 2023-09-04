@@ -204,7 +204,28 @@ const useGraphQLRequest = () => {
             photo {
               url
             }
+
             createdAt
+            posts {
+              slug
+              title
+              excerpt
+              author {
+                bio
+                name
+                id
+                photo {
+                  url
+                }
+              }
+              featuredImage {
+                url
+              }
+              categories {
+                name
+                slug
+              }
+            }
           }
           createdAt
           slug
