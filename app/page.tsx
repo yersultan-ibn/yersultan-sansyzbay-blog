@@ -2,7 +2,6 @@
 import {
   Categories,
   Footer,
-  Hero,
   Pagination,
   PostCard,
   PostWidget,
@@ -17,7 +16,7 @@ import { useEffect, useState } from "react";
 import rightIcon from "../public/right-arrow.svg";
 import { FeaturedPosts } from "@/sections";
 import { hats } from "@/constants";
-import useGraphQLRequest from "@/services/useGraphQLRequest";
+import useGraphQLRequest, { Post } from "@/services/useGraphQLRequest";
 interface PostData {
   id: string;
   node: any;
@@ -29,7 +28,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isActive, setIsActive] = useState<boolean>(false);
   const itemsPerPage: number = 3;
-  const totalItems: number = 100;
+  const totalItems: number = 20;
   const pageCount: number = Math.ceil(totalItems / itemsPerPage);
 
   const { getPosts } = useGraphQLRequest();
@@ -39,16 +38,17 @@ export default function Home() {
       setIsLoading(true);
       const startIndex: number = (currentPage - 1) * itemsPerPage;
       const endIndex: number = startIndex + itemsPerPage;
-      const postsData: any[] = await getPosts(startIndex, endIndex);
 
-      const sortedPosts: PostData[] = postsData.sort(
-        (a, b) => new Date(b.node.createdAt) - new Date(a.node.createdAt)
-      );
+      const postsData = await getPosts(startIndex, endIndex);
 
-      setPosts(sortedPosts);
+      if (postsData !== null) {
+        setPosts(postsData);
+      }
+
       setIsLoading(false);
       window.scrollTo(0, 0);
     };
+
     fetchPosts();
   }, [currentPage]);
 
