@@ -8,7 +8,7 @@ interface RowProps {
 const Row: React.FC<RowProps> = ({ text, styles }): JSX.Element => {
   return (
     <h3
-      className={`${styles} border-b-[2px] border-black pb-2 font-medium max-w-max sm:text-3xl text-[19px] text-black border-b-1`}
+      className={`${styles} border-b-[2px] border-black dark:border-white pb-2 font-medium max-w-max sm:text-3xl text-[19px] light:text-black border-b-1`}
     >
       {text}
     </h3>

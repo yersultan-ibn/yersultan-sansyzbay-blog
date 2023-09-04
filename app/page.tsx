@@ -17,6 +17,7 @@ import rightIcon from "../public/right-arrow.svg";
 import { FeaturedPosts } from "@/sections";
 import { hats } from "@/constants";
 import useGraphQLRequest, { Post } from "@/services/useGraphQLRequest";
+
 interface PostData {
   id: string;
   node: any;

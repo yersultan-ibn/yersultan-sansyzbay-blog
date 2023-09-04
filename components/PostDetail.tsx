@@ -60,7 +60,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
     if (obj) {
       if (obj.bold) {
         modifiedText = (
-          <b className="bg-[#ffee9559] leading-[1.8] font-semibold" key={index}>
+          <b className="bg-[#ffee9559] dark:bg-[#3a5c7a] leading-[1.8] font-semibold" key={index}>
             {text}
           </b>
         );
@@ -113,11 +113,10 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
 
   return (
     <>
-      <div className="bg-white rounded-lg lg:p-8 pb-12 md:mb-8 md:w-[70%] w-full mx-auto">
+      <div className="light:bg-white rounded-lg lg:p-8 pb-12 md:mb-8 md:w-[70%] w-full mx-auto">
         <div className="relative overflow-hidden shadow-md mb-6 md:w-[60%] w-[95%] mx-auto">
           <img
             src={post?.featuredImage?.url}
-            alt=""
             className="object-top h-full w-full object-cover  shadow-lg"
           />
         </div>
@@ -136,8 +135,8 @@ const PostDetail: React.FC<PostDetailProps> = ({ post }): JSX.Element => {
                   src={post?.author?.photo?.url}
                 />
               </div>
-              <div className="font-medium text-gray-700 flex flex-col">
-                <p className="inline align-left text-gray-700 font-medium text-lg">
+              <div className="font-medium light:text-gray-700 flex flex-col">
+                <p className="inline align-left light:text-gray-700 font-medium text-lg">
                   {post?.author?.name}
                 </p>
                 <span className="align-middle text-[#397ade] font-light text-[15px]">

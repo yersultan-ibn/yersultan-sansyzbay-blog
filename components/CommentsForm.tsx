@@ -93,7 +93,7 @@ const CommentsForm: React.FC<CommentFormProps> = ({ slug }): JSX.Element => {
     });
   };
   return (
-    <div className="bg-white shadow-lg p-8 pb-12 mb-8">
+    <div className="light:bg-white dark:bg-[#283445] shadow-lg p-8 pb-12 mb-8">
       <h1 className="text-xl mb-8 font-semibold border-b pb-4">Comment</h1>
       <div className="grid grid-cols-1 gap-4 mb-4">
         <textarea
@@ -109,7 +109,7 @@ const CommentsForm: React.FC<CommentFormProps> = ({ slug }): JSX.Element => {
           type="text"
           value={formData.name}
           onChange={onInputChange}
-          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-100 text-gray-700"
+          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 dark:bg-white focus:ring-gray-100 text-gray-700"
           placeholder="Name"
           name="name"
         />
@@ -117,7 +117,7 @@ const CommentsForm: React.FC<CommentFormProps> = ({ slug }): JSX.Element => {
           type="text"
           value={formData.email}
           onChange={onInputChange}
-          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-100 text-gray-700"
+          className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 dark:bg-white focus:ring-gray-100 text-gray-700"
           placeholder="Email"
           name="email"
         />
@@ -133,7 +133,7 @@ const CommentsForm: React.FC<CommentFormProps> = ({ slug }): JSX.Element => {
             value="true"
           />
           <label
-            className="text-gray-500 cursor-pointer ml-2"
+            className="light:text-gray-500 cursor-pointer ml-2"
             htmlFor="storeData"
           >
             Save my email & number for the next time i comment
