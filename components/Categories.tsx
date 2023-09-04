@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { getCategories } from "@/services";
+import useGraphQLRequest from "@/services/useGraphQLRequest";
 
 interface Category {
   name: string;
@@ -10,13 +10,14 @@ interface Category {
 
 const Categories: React.FC = (): JSX.Element => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const { getCategories } = useGraphQLRequest(); // Use the hook to get the categories
 
   useEffect(() => {
     getCategories().then((newCategories: Category[]) => {
       setCategories(newCategories);
     });
   }, []);
-
+ 
   return (
     <>
       <h3 className="sm:text-[30px] text-[20px] mb-8 font-semibold border-b pt-4 pb-4 text-center border-t uppercase">

@@ -2,7 +2,7 @@ import { gql, request } from "graphql-request";
 
 export const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-interface Post {
+export interface Post {
   title: string;
   excerpt: string;
   featuredImage: {
@@ -296,7 +296,7 @@ const useGraphQLRequest = () => {
     }
   };
 
-  const getCategoryPost = async (slug: string): Promise<Post[] | null> => {
+  const getCategoryPost = async (slug: string) => {
     const query = gql`
       query GetCategoryPost($slug: String!) {
         postsConnection(where: { categories_some: { slug: $slug } }) {
@@ -344,6 +344,7 @@ const useGraphQLRequest = () => {
         categories {
           name
           slug
+          createdAt
         }
       }
     `;

@@ -84,7 +84,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }): JSX.Element => {
           </div>
         </Link>
 
-        <div className="xl:my-0 md:my-5 cursor-pointer right-5 sm:text-[20px] text-[13px] bg-[#f1cf71] text-black rounded-[14px] px-5 py-1">
+        <div className="xl:my-0 md:my-5 cursor-pointer right-5 sm:text-[16px] text-[13px] bg-[#f1cf71] text-black rounded-[14px] px-5 py-1">
           {post?.categories?.map((category, index) => (
             <Link key={index} href={`/category/${category.slug}`}>
               <span

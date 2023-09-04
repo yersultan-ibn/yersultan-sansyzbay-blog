@@ -35,7 +35,11 @@ const FeaturedPosts: React.FC = () => {
 
   useEffect(() => {
     getFeaturedPosts().then((result: FeaturedPost[]) => {
-      setFeaturedPosts(result);
+      const sortedPostsData = result.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setFeaturedPosts(sortedPostsData);
       setDataLoaded(true);
     });
   }, []);

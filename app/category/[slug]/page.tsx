@@ -12,16 +12,12 @@ interface CategoryPostProps {
 
 const CategoryPost: React.FC<CategoryPostProps> = ({ params }) => {
   const [posts, setPosts] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any>(null);
   const node = posts.map((item) => item.node);
   const categoriesParent = node.map((item) => item.categories);
   const categoriesArray = categoriesParent.map((item) => item[0]);
   const categoriesInner = categoriesArray.map((item) => item);
   const categoriesName = categoriesInner.map((item) => item.name);
-  // console.log(
-  //   "categoriesName",
-  //   categoriesName.map((item) => console.log("itemfisf12`13`13`13", item.name))
-  // );
 
   const router = useRouter();
 
@@ -31,6 +27,11 @@ const CategoryPost: React.FC<CategoryPostProps> = ({ params }) => {
     const fetchData = async () => {
       if (params.slug) {
         const fetchedPosts = await getCategoryPost(params.slug);
+        const sortedPosts = fetchedPosts.sort((a: any, b: any) => {
+          const dateA = new Date(a.node.createdAt);
+          const dateB = new Date(b.node.createdAt);
+          return dateB.getTime() - dateA.getTime();
+        });
         setPosts(fetchedPosts);
       }
     };
@@ -47,9 +48,9 @@ const CategoryPost: React.FC<CategoryPostProps> = ({ params }) => {
     fetchCategories();
   }, []);
 
-  if (router.isFallback) {
-    return <Spinner />;
-  }
+  // if (router.isFallback) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div className="container mx-auto md:px-10 px-5 mb-8">
