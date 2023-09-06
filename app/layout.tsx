@@ -5,13 +5,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { ThemeProvider } from "next-themes";
-
+import { LanguageProvider } from "@/context/LanguageContext";
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   title: "Sansyzbay Yersultan",
-//   description: "My Blog",
-// };
+const metadata = {
+  title: "Sansyzbay Yersultan",
+  description: "My Blog",
+};
 
 export default function RootLayout({
   children,
@@ -24,9 +24,11 @@ export default function RootLayout({
         <link rel="icon" href="/app/favicon.ico" sizes="any" />;
       </Head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class">
-          <Layout>{children}</Layout>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider attribute="class">
+            <Layout>{children}</Layout>
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

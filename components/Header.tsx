@@ -12,6 +12,7 @@ import {
   FaSun,
   FaRegMoon,
 } from "react-icons/fa";
+import { toggleLanguage, useLanguage } from "@/context/LanguageContext";
 
 interface Category {
   name: string;
@@ -22,11 +23,18 @@ const Header: React.FC = (props): JSX.Element => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { language, changeLanguage, translations } = useLanguage();
 
+  const handleLanguageChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newLanguage = event.target.value;
+    changeLanguage(newLanguage);
+  };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  console.log("language",language)
   useEffect(() => {
     getCategories().then((newCategories) => {
       setCategories(newCategories);
@@ -71,17 +79,21 @@ const Header: React.FC = (props): JSX.Element => {
                 className={`w-8 h-8 flex justify-around flex-col flex-wrap z-10 cursor-pointer`}
               >
                 <div
-                  className={` bg-black dark:bg-white block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
+                  className={`bg-black dark:bg-white block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
                 />
                 <div
-                  className={` bg-black dark:bg-white block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
+                  className={`bg-black dark:bg-white block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
                 />
                 <div
-                  className={` bg-black dark:bg-white block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
+                  className={`bg-black dark:bg-white block w-8 h-[0.35rem] rounded transition-all origin-[1px]`}
                 />
               </button>
             </div>
             <div className="hidden md:block">
+              <select value={language} onChange={handleLanguageChange}>
+                <option value="en">English</option>
+                <option value="ru">Русский</option>
+              </select>
               <div className="flex">
                 <Link
                   href="/"

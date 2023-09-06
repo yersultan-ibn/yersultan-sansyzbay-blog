@@ -1,3 +1,4 @@
+import { useLanguage } from "@/context/LanguageContext";
 import React, { useState, useEffect } from "react";
 
 interface Hat {
@@ -16,6 +17,8 @@ const TypeWriter: React.FC<TypeWriterProps> = ({
   hats,
   prefix,
 }: TypeWriterProps): JSX.Element => {
+  const { language, translations } = useLanguage();
+
   // Outer container base class + append custom class
   let className = "flex flex-col gap-4";
   if (appendClass) className += " " + appendClass;
@@ -68,8 +71,10 @@ const TypeWriter: React.FC<TypeWriterProps> = ({
     <div className="md:py-[80px] dark:bg-[#283445] py-[50px] mb-10 light:bg-[#f9f9f4]">
       <div className={className}>
         <div className="text-3xl sm:text-4xl md:text-4xl text-center mx-auto">
-          Добро пожаловать на
-          <span className="text-[#1665d8] font-bold"> офицальный сайт</span>
+          {translations.welcome}
+          <span className="text-[#1665d8] font-bold">
+          {''}  {translations.officialSite}
+          </span>
         </div>
         <div className="flex gap-2 sm:text-2xl text-1xl md:text-4xl mx-auto">
           <div className="shrink-0 whitespace-nowrap ml-auto">
@@ -77,7 +82,7 @@ const TypeWriter: React.FC<TypeWriterProps> = ({
             {hats[currentHat].prep ? ` ${hats[currentHat].prep} ` : ""}
           </div>
           <div className={`${typeWriterClass}${collapseClass}`}>
-            {hats[currentHat].suffix}
+            {translations[hats[currentHat].suffix]}
           </div>
         </div>
       </div>
